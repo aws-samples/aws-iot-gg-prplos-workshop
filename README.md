@@ -1,17 +1,5 @@
-## My Project
+[labs/lab_00_Setup.md](labs/lab_00_Setup.md)
 
-TODO: Fill this README out!
+[labs/lab_01_prplOS_LCM.md](labs/lab_01_prplOS_LCM.md)
 
-Be sure to:
-
-* Change the title in this README
-* Edit your repository description on GitHub
-
-## Security
-
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
-
-## License
-
-This library is licensed under the MIT-0 License. See the LICENSE file.
-
+[labs/lab_02_GG_on_prplOS.md](labs/lab_02_GG_on_prplOS.md)
