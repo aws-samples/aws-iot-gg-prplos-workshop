@@ -3,7 +3,7 @@
 
 ## Step 1 - Setup image
 
-1.1 Download prplOS image from the official releases
+1.1 Download prplOS image for x86-64 from the official releases
 
 ```bash
 wget \
@@ -27,7 +27,7 @@ sudo losetup $loop_device openwrt-x86-64-generic-squashfs-combined-efi.img
 #
 ```
 
-1.4 Fix the GPT partition and increase the root partition size to 100% (1024 MiB):
+1.4 Fix the GPT partition and increase the root partition size to 100%
 
 ```bash
 echo -e "OK\nFix" | sudo parted ---pretend-input-tty "$loop_device" print
@@ -71,7 +71,7 @@ sudo losetup -d $loop_device
 
 ## Step 2 -  Spin image using Qemu
 
-2.1 Start image using `qemu-system-x86_64`
+2.1 Start image using `qemu-system-x86_64`. Use KVM, add 8 cores, add 2G RAM, add two NICs, enable port forwarding for SSH using 127.0.0.1 port 2222
 
 ```bash
 qemu-system-x86_64 \
@@ -89,7 +89,7 @@ qemu-system-x86_64 \
 ```
 ## Step 3 -  Configure network
 
-3.1 Change ip address for lan interface to 10.0.2.20
+3.1 Once the image has bootes, change ip address of the lan interface to 10.0.2.20
 
 ```bash
 ubus-cli IP.Interface.lan.IPv4Address.lan.IPAddress="10.0.2.20"
@@ -434,7 +434,7 @@ lxc-ls  --fancy
 #
 ```
 
-## Step 6 - Setup a test registry service
+## Step 6 - Setup a test image registry service
 
 6.1 - Setup the server
 

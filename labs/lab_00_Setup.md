@@ -2,11 +2,11 @@
 
 ## Step 1 - Launch instance
 
-1.1 - Deploy EC2 instance `c7a.xlarge` with 32 GiB GP3 disk. Allow SSH (22) and HTTPs (443) from the outside
+1.1 - Deploy EC2 instance `c5.metal`. Allow SSH (22), HTTPs (443) and a custom TCP port (1234) from the outside.
 
 ## Step 2 - Install Docker
 
-2.1 - Add Docker's official GPG key:Install Docker
+2.1 - Add Docker's official GPG and install some tools
 
 ```bash
 
@@ -29,6 +29,9 @@ echo \
 
 sudo apt-get update
 ```
+
+2.3 - Install Docker
+
 ```bash
 sudo apt-get install -y \
     skopeo \
@@ -51,7 +54,7 @@ sudo docker run hello-world
 
 ## Step 4 - Install QEMU
 
-4.1 - Install Docker and Qemu
+4.1 - Install QEMU
 
 ```bash
 sudo apt-get install -y \

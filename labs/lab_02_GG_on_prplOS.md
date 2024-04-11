@@ -2,18 +2,8 @@
 
 ## Step 1 - Connect to the LCM SDK contaienr
 
-1.1 - Take note of the container Id that corresponds to the SDK
 
-```bash
-
-buntu@ip-172-31-16-224:~$ sudo docker ps
-CONTAINER ID   IMAGE                                                               COMMAND                  CREATED       STATUS       PORTS                                             NAMES
-7604f1d718ed   registry:2                                                          "/entrypoint.sh /etc…"   2 hours ago   Up 2 hours   0.0.0.0:443->443/tcp, :::443->443/tcp, 5000/tcp   test-registry
-dd2946e6e6a9   registry.gitlab.com/prpl-foundation/sdk/lcm/lcm_sdk_x86-64:v3.0.0   "/home/lcmuser/init.…"   2 hours ago   Up 2 hours                                                     lcm_sdk
-
-```
-
-1.2 - Attach to the SDK container
+1.1 - Attach to the SDK container
 
 ```bash
 sudo docker exec -it lcm_sdk /bin/bash
@@ -73,10 +63,16 @@ SRC_URI[license.sha256sum] = "09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5
 RDEPENDS:${PN} += "\
     ca-certificates \
     corretto-11-bin \
+    python3-profile \
     python3-core \
     python3-json \
     python3-numbers \
+    python3-pip \
+    python3-numpy \
+    netcat \
+    strace \
     sudo \
+    libstdc++6 \
     "
 
 do_configure[noexec] = "1"
@@ -261,24 +257,7 @@ EOF
 ```bash
 cat <<EOF > /greengrass/AmazonRootCA1.pem
 -----BEGIN CERTIFICATE-----
-MIIDQTCCAimgAwIBAgITBmyfz5m/jAo54vB4ikPmljZbyjANBgkqhkiG9w0BAQsF
-ADA5MQswCQYDVQQGEwJVUzEPMA0GA1UEChMGQW1hem9uMRkwFwYDVQQDExBBbWF6
-b24gUm9vdCBDQSAxMB4XDTE1MDUyNjAwMDAwMFoXDTM4MDExNzAwMDAwMFowOTEL
-MAkGA1UEBhMCVVMxDzANBgNVBAoTBkFtYXpvbjEZMBcGA1UEAxMQQW1hem9uIFJv
-b3QgQ0EgMTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALJ4gHHKeNXj
-ca9HgFB0fW7Y14h29Jlo91ghYPl0hAEvrAIthtOgQ3pOsqTQNroBvo3bSMgHFzZM
-9O6II8c+6zf1tRn4SWiw3te5djgdYZ6k/oI2peVKVuRF4fn9tBb6dNqcmzU5L/qw
-IFAGbHrQgLKm+a/sRxmPUDgH3KKHOVj4utWp+UhnMJbulHheb4mjUcAwhmahRWa6
-VOujw5H5SNz/0egwLX0tdHA114gk957EWW67c4cX8jJGKLhD+rcdqsq08p8kDi1L
-93FcXmn/6pUCyziKrlA4b9v7LWIbxcceVOF34GfID5yHI9Y/QCB/IIDEgEw+OyQm
-jgSubJrIqg0CAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMC
-AYYwHQYDVR0OBBYEFIQYzIU07LwMlJQuCFmcx7IQTgoIMA0GCSqGSIb3DQEBCwUA
-A4IBAQCY8jdaQZChGsV2USggNiMOruYou6r4lK5IpDB/G/wkjUu0yKGX9rbxenDI
-U5PMCCjjmCXPI6T53iHTfIUJrU6adTrCC2qJeHZERxhlbI1Bjjt/msv0tadQ1wUs
-N+gDS63pYaACbvXy8MWy7Vu33PqUXHeeE6V/Uq2V8viTO96LXFvKWlJbYK8U90vv
-o/ufQJVtMVT8QtPHRh8jrdkPSHCa2XV4cdFyQzR1bldZwgJcJmApzyMZFo6IQ6XU
-5MsI+yMRQ+hDKXJioaldXgjUkK642M4UwtBV8ob2xJNDd2ZhwLnoQdeXeGADbkpy
-rqXRfboQnoZsG4q5WTP468SQvvG5
+EXAMPLE
 -----END CERTIFICATE-----
 EOF
 ```
