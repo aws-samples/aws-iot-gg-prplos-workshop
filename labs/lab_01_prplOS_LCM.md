@@ -3,31 +3,30 @@
 
 ## Step 1 - Setup image
 
-1.1 Download prplOS image for x86-64 from the official releases
+1.1 - Download prplOS image for x86-64 from the official releases
 
 ```bash
 wget \
     https://gitlab.com/api/v4/projects/20776235/packages/generic/x86-64/3.0.1/openwrt-x86-64-generic-squashfs-combined-efi.img
 ```
 
-1.2 Increase base image size to 4G:
+1.2 - Increase base image size to 4G:
 
 ```bash
 qemu-img resize -f raw openwrt-x86-64-generic-squashfs-combined-efi.img 4G
-# Image resized.
 ```
 
-1.3 Loop mount the base image so it can be modified
+1.3 - Loop mount the base image so it can be modified
 
 ```bash
 
 loop_device=$(losetup -f)
-#
+
 sudo losetup $loop_device openwrt-x86-64-generic-squashfs-combined-efi.img
-#
+
 ```
 
-1.4 Fix the GPT partition and increase the root partition size to 100%
+1.4 - Fix the GPT partition and increase the root partition size to 100%
 
 ```bash
 echo -e "OK\nFix" | sudo parted ---pretend-input-tty "$loop_device" print
@@ -49,6 +48,7 @@ echo -e "OK\nFix" | sudo parted ---pretend-input-tty "$loop_device" print
 
 sudo parted "$loop_device" resizepart 2 100%
 # Information: You may need to update /etc/fstab.
+
 sudo parted "$loop_device" print
 # #Model: Loopback device (loopback)
 # Disk /dev/loop6: 1074MB
@@ -63,15 +63,14 @@ sudo parted "$loop_device" print
 
 ```
 
-1.5 Remove the loop mount device
+1.5 - Remove the loop mount device
 ```bash
 sudo losetup -d $loop_device
-#
 ```
 
 ## Step 2 -  Spin image using Qemu
 
-2.1 Start image using `qemu-system-x86_64`. Use KVM, add 8 cores, add 2G RAM, add two NICs, enable port forwarding for SSH using 127.0.0.1 port 2222
+2.1 - Start image using `qemu-system-x86_64`. Use KVM, add 8 cores, add 2G RAM, add two NICs, enable port forwarding for SSH using 127.0.0.1 port 2222
 
 ```bash
 qemu-system-x86_64 \
@@ -89,7 +88,7 @@ qemu-system-x86_64 \
 ```
 ## Step 3 -  Configure network
 
-3.1 Once the image has bootes, change ip address of the lan interface to 10.0.2.20
+3.1 - Once the image has booted, change ip address of the lan interface to 10.0.2.20
 
 ```bash
 ubus-cli IP.Interface.lan.IPv4Address.lan.IPAddress="10.0.2.20"
@@ -158,9 +157,8 @@ netstat -aln | grep -i listen
 # tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN  <<------      
 
 service ssh-server stop
-#
 service ssh-server start
-#
+
 ```
 
 3.5 - Login via SSH from host
@@ -221,13 +219,13 @@ ubus-cli
 # >
 ```
 
-4.2 Use the `InstallDU` method to deploy a sample container hosted at the Prpl Foundation
+4.2 - Use the `InstallDU` method to deploy a sample container hosted at the Prpl Foundation
 
 ```bash
 SoftwareModules.InstallDU(URL="docker://registry.gitlab.com/prpl-foundation/prplos/prplos/prplos/lcm-test-x86-64:prplos-v1", UUID="bd50974c-0fcf-48f0-82e3-2210d4a7ef70", ExecutionEnvRef="generic", NetworkConfig = { "AccessInterfaces" = [{"Reference" = "Lan"}] })
 ```
 
-4.3 - Monitor incoming messages. Check that container was deployed successfully.
+4.3 - Monitor incoming messages. Check that the container was deployed successfully.
 
 ```bash
 [2024-04-05T08:28:52Z] Event dm:object-changed received from SoftwareModules.
@@ -362,7 +360,7 @@ ubus-cli 'Cthulhu.Container.Instances.*.Bundle?'
 # Cthulhu.Container.Instances.1.Bundle="prpl-foundation/prplos/prplos/prplos/lcm-test-x86-64"
 ```
 
-4.7 Attach to the container and check contents (CTRL+D to exit)
+4.7 - Attach to the container and check contents (CTRL+D to exit)
 
 ```bash
 lxc-attach -n c879945e-d002-5775-88a8-e29bc0c641b4

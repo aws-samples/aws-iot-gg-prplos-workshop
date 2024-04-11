@@ -59,6 +59,6 @@ sudo docker run hello-world
 ```bash
 sudo apt-get install -y \
     net-tools \
-    qemu-system \
+    qemu-system 
 
 ```
