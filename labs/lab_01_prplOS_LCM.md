@@ -73,7 +73,7 @@ sudo losetup -d $loop_device
 2.1 - Start image using `qemu-system-x86_64`. Use KVM, add 8 cores, add 2G RAM, add two NICs, enable port forwarding for SSH using 127.0.0.1 port 2222
 
 ```bash
-qemu-system-x86_64 \
+sudo qemu-system-x86_64 \
     -accel kvm \
     -nographic \
     -smp 8 \
@@ -164,7 +164,7 @@ service ssh-server start
 3.5 - Login via SSH from host
 
 >
-> NOTE: Use a different terminal session for the next step
+> NOTE: Open a new terminal session on Ubuntu for the next step
 >
 
 ```bash
@@ -222,7 +222,7 @@ ubus-cli
 4.2 - Use the `InstallDU` method to deploy a sample container hosted at the Prpl Foundation
 
 ```bash
-SoftwareModules.InstallDU(URL="docker://registry.gitlab.com/prpl-foundation/prplos/prplos/prplos/lcm-test-x86-64:prplos-v1", UUID="bd50974c-0fcf-48f0-82e3-2210d4a7ef70", ExecutionEnvRef="generic", NetworkConfig = { "AccessInterfaces" = [{"Reference" = "Lan"}] })
+SoftwareModules.InstallDU(URL="docker://registry.gitlab.com/prpl-foundation/prplos/prplos/prplos/lcm-test-x86-64:prplos-v1", UUID="8e2ec7c2-4a8f-5ff1-b241-f2c0e275868f", ExecutionEnvRef="generic", NetworkConfig = { "AccessInterfaces" = [{"Reference" = "Lan"}] })
 ```
 
 4.3 - Monitor incoming messages. Check that the container was deployed successfully.
@@ -341,7 +341,7 @@ root - ubus: - [ubus-cli] (0)
 ```bash
 lxc-ls --fancy
 # NAME                                 STATE   AUTOSTART GROUPS IPV4 IPV6 UNPRIVILEGED 
-# c879945e-d002-5775-88a8-e29bc0c641b4 RUNNING 0         -      -    -    false    
+# 2cb86d19-8f4f-56d9-9039-c577ae477e99 RUNNING 0         -      -    -    false    
 ```
 
 4.5 - Check that container is running using `ubus-cli`
@@ -363,7 +363,7 @@ ubus-cli 'Cthulhu.Container.Instances.*.Bundle?'
 4.7 - Attach to the container and check contents (CTRL+D to exit)
 
 ```bash
-lxc-attach -n c879945e-d002-5775-88a8-e29bc0c641b4
+lxc-attach -n 2cb86d19-8f4f-56d9-9039-c577ae477e99
 # BusyBox v1.35.0 (2024-03-27 20:27:30 UTC) built-in shell (ash)
 
 root@c879945e-d002-5775-88a8-e29bc0c641b4:~# cat /etc/os-release
@@ -436,6 +436,10 @@ lxc-ls  --fancy
 
 6.1 - Setup the server
 
+>
+> NOTE: Run the following command on Ubuntu (not prplOS). You may need to hit CTRL+D.
+>
+
 ```bash
 
 mkdir ~/docker_registry_certs 
@@ -493,7 +497,7 @@ devtool add \
     https://github.com/TravorLZH/autotools-helloworld.git 
 # NOTE: Starting bitbake server...
 ```
-8.2 Use `devtool` to build the recipe
+8.2 Use `devtool` to build the recipe. Take a break; this step takes ~10 minutes the first time it is run.
 
 ```bash
 devtool build testhellow
@@ -501,7 +505,7 @@ devtool build testhellow
 # NOTE: Tasks Summary: Attempted 553 tasks of which 8 didn't need to be rerun and all succeeded.
 ```
 
-8.2  Use `devtool` to build the image
+8.2  Use `devtool` to build the image. Take a break; this step takes ~7 minutes the first time it is run.
 
 ```bash
 devtool build-image
@@ -523,6 +527,11 @@ skopeo copy \
 
 
 ## Step 10 - Deploy container to the prplOS instance
+
+>
+> NOTE: Run the following command on prplOS (not Ubuntu). You may need to hit CTRL+D and ssh to localhost.
+>
+
 
 10.1 - Modify Rlyeh to not check for certificate verification `CertificateVerification`. and restart the service.
 
@@ -559,7 +568,7 @@ ubus-cli
 10.3 - Use the `InstallDU` method to deploy the custom container.
 
 ```bash
-SoftwareModules.InstallDU(URL="docker://{_YOUR_EC2_PUBLIC_IP_}/helloworld:latest", UUID="bd50974c-0fcf-48f0-82e3-2210d4a7ef70", ExecutionEnvRef="generic", NetworkConfig = { "AccessInterfaces" = [{"Reference" = "Lan"}] })
+SoftwareModules.InstallDU(URL="docker://{_YOUR_EC2_PUBLIC_IP_}/helloworld:latest", UUID="8e2ec7c2-4a8f-5ff1-b241-f2c0e275868a", ExecutionEnvRef="generic", NetworkConfig = { "AccessInterfaces" = [{"Reference" = "Lan"}] })
 ```
 
 10.4 - Exit ubus-cli (CTRL+D) and verify that the container has been deployed using `lxc-ls`
@@ -567,7 +576,7 @@ SoftwareModules.InstallDU(URL="docker://{_YOUR_EC2_PUBLIC_IP_}/helloworld:latest
 ```bash
 lxc-ls --fancy
 # NAME                                 STATE   AUTOSTART GROUPS IPV4          IPV6 UNPRIVILEGED 
-# c879945e-d002-5775-88a8-e29bc0c641b4 RUNNING 0         -      192.168.5.100 -    false    
+# 39106186-f67d-5674-8953-b069fea07e4f  RUNNING 0         -      192.168.5.100 -    false    
 ```
 
 10.5 - Check that container running
@@ -589,7 +598,7 @@ ubus-cli 'Cthulhu.Container.Instances.*.Bundle?'
 10.7 - Attach to the container and check contents (CTRL+D to exit)
 
 ```bash
-lxc-attach -n c879945e-d002-5775-88a8-e29bc0c641b4
+lxc-attach -n 39106186-f67d-5674-8953-b069fea07e4f
 # root@c879945e-d002-5775-88a8-e29bc0c641b4:/# helloworld 
 # Hello world!
 # root@c879945e-d002-5775-88a8-e29bc0c641b4:/# helloconf
@@ -604,7 +613,7 @@ lxc-attach -n c879945e-d002-5775-88a8-e29bc0c641b4
 11.1 - Stop container
 
 ```bash
-ubus-cli 'SoftwareModules.ExecutionUnit.1.SetRequestedState(RequestedState = "Active")'
+ubus-cli 'SoftwareModules.ExecutionUnit.2.SetRequestedState(RequestedState = "Idle")'
 # > SoftwareModules.ExecutionUnit.1.SetRequestedState(RequestedState = "Idle")
 # SoftwareModules.ExecutionUnit.1.SetRequestedState() returned
 # [

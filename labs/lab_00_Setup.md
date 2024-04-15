@@ -1,15 +1,17 @@
-### Lab Zero: Setup a deveveloper EC2 insrtance
+### Lab Zero: Setup a deveveloper EC2 instance
 
 ## Step 1 - Launch instance
 
-1.1 - Deploy EC2 instance `c5.metal`. Allow SSH (22), HTTPs (443) and a custom TCP port (1234) from the outside.
+1.1 - Login to the AWS Console and deploy an EC2 instance `c5.metal`  (96 vCPU / 192 MiB RAM) using Ubunty Server 22.04 LTS as the OS. Allocate 128 GiB Disk. Allow SSH (TCP 22), HTTPs (TCP 443) from anywhere in the Internet (0.0.0.0/0). Use an existing key or create a new one. Read this guide if you have never used EC2: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html
+
 
 ## Step 2 - Install Docker
 
-2.1 - Add Docker's official GPG and install some tools
+2.1 - SSH into to the newly created EC2 instnace. Add Docker's official GPG plus install some additional software
 
 ```bash
 
+sudo apt-get update
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc

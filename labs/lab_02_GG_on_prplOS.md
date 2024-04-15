@@ -117,13 +117,43 @@ do_package_qa[noexec] = "1"
 INSANE_SKIP:${PN} += "already-stripped ldflags file-rdeps"
 ```
 
+2.3 - Clone `aws-meta` into the layers directory and add it to `bblayers.conf`
+
+```bash
+cd /sdkworkdir/layers/
+git clone -b honister https://github.com/aws4embeddedlinux/meta-aws 
+vi /sdkworkdir/conf/bblayers.conf
+```
+
+```
+BBPATH = "${TOPDIR}"
+SDKBASEMETAPATH = "${TOPDIR}"
+BBLAYERS := " \
+    ${SDKBASEMETAPATH}/layers/poky/meta \
+    ${SDKBASEMETAPATH}/layers/poky/meta-openembedded/meta-oe \
+    ${SDKBASEMETAPATH}/layers/poky/meta-openembedded/meta-python \
+    ${SDKBASEMETAPATH}/layers/poky/meta-openembedded/meta-networking \
+    ${SDKBASEMETAPATH}/layers/poky/meta-openembedded/meta-filesystems \
+    ${SDKBASEMETAPATH}/layers/poky/meta-openembedded/meta-webserver \
+    ${SDKBASEMETAPATH}/layers/meta-aws \
+    ${SDKBASEMETAPATH}/layers/meta-lcm/meta-amx \
+    ${SDKBASEMETAPATH}/layers/meta-lcm/meta-usp \
+    ${SDKBASEMETAPATH}/layers/poky/meta-yocto-bsp \
+    ${SDKBASEMETAPATH}/layers/meta-bsp/meta-lcm-containers \
+    ${SDKBASEMETAPATH}/layers/poky/meta-lcm-basic \
+    ${SDKBASEMETAPATH}/layers/meta-bsp/meta-virtualization \
+    ${SDKBASEMETAPATH}/workspace \
+    "
+
+```
+
 ## Step 3 - Build container image
 
 3.1 - Build recipe 
 
 ```bash
 
-devtool build gglite-testing
+devtool build ggv2-image
 # NOTE: Starting bitbake server...
 # NOTE: Tasks Summary: Attempted 655 tasks of which 655 didn't need to be rerun and all succeeded.
 ```
@@ -141,7 +171,7 @@ devtool build-image
 ```bash
 skopeo copy \
     oci:/sdkworkdir/tmp/deploy/images/container-x86-64/image-lcm-amx-ubus-usp-lcmsampleapp-container-x86-64.rootfs-oci \
-    docker://{_YOUR_EC2_PUBLIC_IP_}/gglite-testing:latest \
+    docker://{_YOUR_EC2_PUBLIC_IP_}/ggv2-testing:latest \
     --dest-tls-verify=false
 ```
 
@@ -169,7 +199,7 @@ SoftwareModules.ExecEnv.2.Enable=1
 4.3 - Use the `InstallDU` method to deploy the custom container using the new execution environment
 
 ```bash
-SoftwareModules.InstallDU(URL="docker://{_YOUR_EC2_PUBLIC_IP_}/ggv2-v1:latest", UUID="bd50974c-0fcf-48f0-82e3-2210d4a7ef70", ExecutionEnvRef="generic-new", NetworkConfig = { "AccessInterfaces" = [{"Reference" = "Wan"}] })
+SoftwareModules.InstallDU(URL="docker://{_YOUR_EC2_PUBLIC_IP_}/ggv2-testing:latest", UUID="8e2ec7c2-4a8f-5ff1-b241-f2c0e275868b", ExecutionEnvRef="generic-new", NetworkConfig = { "AccessInterfaces" = [{"Reference" = "Wan"}] })
 ```
 
 4.4 - Check the container status
@@ -177,14 +207,14 @@ SoftwareModules.InstallDU(URL="docker://{_YOUR_EC2_PUBLIC_IP_}/ggv2-v1:latest", 
 ```bash
 lxc-ls --fancy
 # NAME                                 STATE   AUTOSTART GROUPS IPV4          IPV6 UNPRIVILEGED
-# 774736eb-0ed2-5f54-aa76-e99b67a048e3 RUNNING 0         -      192.168.5.100 -    false
+# c9c9f519-2719-544b-82e6-0571578b8154 RUNNING 0         -      192.168.5.100 -    false
 
 ```
 
 4.5 - Attach to the container
 
 ```bash
-lxc-attach  -n 774736eb-0ed2-5f54-aa76-e99b67a048e3
+lxc-attach  -n c9c9f519-2719-544b-82e6-0571578b8154
 # root@a2fbbddf-e374-5235-bbfd-8bc7beb429bb:/#
 
 ```
