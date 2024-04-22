@@ -1,4 +1,4 @@
-### Lab Zero: Setup a deveveloper EC2 instance
+### Lab Zero: Setup a developer EC2 instance
 
 ## Step 1 - Launch instance
 
