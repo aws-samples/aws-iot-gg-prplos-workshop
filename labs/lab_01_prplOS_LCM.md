@@ -31,14 +31,14 @@ sudo losetup $loop_device openwrt-x86-64-generic-squashfs-combined-efi.img
 ```bash
 echo -e "OK\nFix" | sudo parted ---pretend-input-tty "$loop_device" print
 # Error: The backup GPT table is corrupt, but the primary appears OK, so that will be used.
-# OK/Cancel? OK                                                             
-# Warning: Not all of the space available to /dev/loop6 appears to be used, you can fix the GPT to use all of the space (an extra 1797599 blocks) or continue with the current setting? 
-# Fix/Ignore? Fix                                                           
+# OK/Cancel? OK
+# Warning: Not all of the space available to /dev/loop6 appears to be used, you can fix the GPT to use all of the space (an extra 1797599 blocks) or continue with the current setting?
+# Fix/Ignore? Fix
 # Model: Loopback device (loopback)
 # Disk /dev/loop6: 1074MB
 # Sector size (logical/physical): 512B/512B
 # Partition Table: gpt
-# Disk Flags: 
+# Disk Flags:
 
 # Number  Start   End     Size    File system  Name  Flags
 # 128     17.4kB  262kB   245kB                      bios_grub
@@ -54,7 +54,7 @@ sudo parted "$loop_device" print
 # Disk /dev/loop6: 1074MB
 # Sector size (logical/physical): 512B/512B
 # Partition Table: gpt
-# Disk Flags: 
+# Disk Flags:
 
 # Number  Start   End     Size    File system  Name  Flags
 # 128     17.4kB  262kB   245kB                      bios_grub
@@ -145,16 +145,16 @@ nslookup www.amazon.com
 3.4 - Verify SSH daemon is running and listening on all interfaces. Restart daemon if the service is not online yet.
 
 ```bash
-ps -efa | grep -i ssh 
+ps -efa | grep -i ssh
 # root      5813     1  0 08:11 ?        00:00:00 ssh_server -D /etc/amx/ssh_server/ssh_server.odl
 
 netstat -aln | grep -i listen
-# tcp        0      0 192.168.2.1:53          0.0.0.0:*               LISTEN      
-# tcp        0      0 10.0.2.10:53            0.0.0.0:*               LISTEN      
-# tcp        0      0 127.0.0.1:9999          0.0.0.0:*               LISTEN      
-# tcp        0      0 192.168.5.1:53          0.0.0.0:*               LISTEN      
-# tcp        0      0 127.0.0.1:53            0.0.0.0:*               LISTEN      
-# tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN  <<------      
+# tcp        0      0 192.168.2.1:53          0.0.0.0:*               LISTEN
+# tcp        0      0 10.0.2.10:53            0.0.0.0:*               LISTEN
+# tcp        0      0 127.0.0.1:9999          0.0.0.0:*               LISTEN
+# tcp        0      0 192.168.5.1:53          0.0.0.0:*               LISTEN
+# tcp        0      0 127.0.0.1:53            0.0.0.0:*               LISTEN
+# tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN  <<------
 
 service ssh-server stop
 service ssh-server start
@@ -186,7 +186,7 @@ ssh root@127.0.0.1 -p 2222
 # Use the "passwd" command to set up a new password
 # in order to prevent unauthorized SSH logins.
 # --------------------------------------------------
-# root@prplOS:~# 
+# root@prplOS:~#
 
 ```
 
@@ -232,14 +232,14 @@ SoftwareModules.InstallDU(URL="docker://registry.gitlab.com/prpl-foundation/prpl
 <  dm:object-changed> SoftwareModules.DeploymentUnitNumberOfEntries = 0 -> 1
 
 [2024-04-05T08:28:52Z] Event dm:instance-added received from SoftwareModules.DeploymentUnit.
-<  dm:instance-added> SoftwareModules.DeploymentUnit.1.VendorConfigList = 
+<  dm:instance-added> SoftwareModules.DeploymentUnit.1.VendorConfigList =
 <                   > SoftwareModules.DeploymentUnit.1.Status = Installing
-<                   > SoftwareModules.DeploymentUnit.1.VendorLogList = 
+<                   > SoftwareModules.DeploymentUnit.1.VendorLogList =
 <                   > SoftwareModules.DeploymentUnit.1.UUID = 0f032bd7-54bd-5b81-b14e-9441d730092f
 <                   > SoftwareModules.DeploymentUnit.1.ExecutionEnvRef = Device.SoftwareModules.ExecEnv.1.
 <                   > SoftwareModules.DeploymentUnit.1.Name = prpl-foundation/prplos/prplos/prplos/lcm-test-x86-64
-<                   > SoftwareModules.DeploymentUnit.1.ModuleVersion = 
-<                   > SoftwareModules.DeploymentUnit.1.ExecutionUnitList = 
+<                   > SoftwareModules.DeploymentUnit.1.ModuleVersion =
+<                   > SoftwareModules.DeploymentUnit.1.ExecutionUnitList =
 <                   > SoftwareModules.DeploymentUnit.1.URL = docker://registry.gitlab.com/prpl-foundation/prplos/prplos/prplos/lcm-test-x86-64:prplos-v1
 <                   > SoftwareModules.DeploymentUnit.1.Resolved = 1
 <                   > SoftwareModules.DeploymentUnit.1.DUID = c879945e-d002-5775-88a8-e29bc0c641b4
@@ -281,28 +281,28 @@ SoftwareModules.InstallDU() returned
 <  dm:object-changed> SoftwareModules.ExecutionUnitNumberOfEntries = 0 -> 1
 
 [2024-04-05T08:29:05Z] Event dm:instance-added received from SoftwareModules.ExecutionUnit.
-<  dm:instance-added> SoftwareModules.ExecutionUnit.1.VendorConfigList = 
+<  dm:instance-added> SoftwareModules.ExecutionUnit.1.VendorConfigList =
 <                   > SoftwareModules.ExecutionUnit.1.MemoryInUse = 1976
 <                   > SoftwareModules.ExecutionUnit.1.RunLevel = 0
 <                   > SoftwareModules.ExecutionUnit.1.AvailableMemory = -1
 <                   > SoftwareModules.ExecutionUnit.1.AutoStart = 1
 <                   > SoftwareModules.ExecutionUnit.1.ExecEnvLabel = c879945e-d002-5775-88a8-e29bc0c641b4
-<                   > SoftwareModules.ExecutionUnit.1.ExecutionFaultMessage = 
-<                   > SoftwareModules.ExecutionUnit.1.VendorLogList = 
+<                   > SoftwareModules.ExecutionUnit.1.ExecutionFaultMessage =
+<                   > SoftwareModules.ExecutionUnit.1.VendorLogList =
 <                   > SoftwareModules.ExecutionUnit.1.Status = Idle
 <                   > SoftwareModules.ExecutionUnit.1.AllocatedDiskSpace = -1
 <                   > SoftwareModules.ExecutionUnit.1.ExecutionEnvRef = generic
 <                   > SoftwareModules.ExecutionUnit.1.Name = prpl-foundation/prplos/prplos/p
-<                   > SoftwareModules.ExecutionUnit.1.AssociatedProcessList = 
+<                   > SoftwareModules.ExecutionUnit.1.AssociatedProcessList =
 <                   > SoftwareModules.ExecutionUnit.1.ExecutionFaultCode = NoFault
 <                   > SoftwareModules.ExecutionUnit.1.AvailableDiskSpace = 4755
-<                   > SoftwareModules.ExecutionUnit.1.Vendor = 
-<                   > SoftwareModules.ExecutionUnit.1.Description = 
+<                   > SoftwareModules.ExecutionUnit.1.Vendor =
+<                   > SoftwareModules.ExecutionUnit.1.Description =
 <                   > SoftwareModules.ExecutionUnit.1.AllocatedMemory = -1
 <                   > SoftwareModules.ExecutionUnit.1.DiskSpaceInUse = 21
 <                   > SoftwareModules.ExecutionUnit.1.AllocatedCPUPercent = 100
 <                   > SoftwareModules.ExecutionUnit.1.EUID = c879945e-d002-5775-88a8-e29bc0c641b4
-<                   > SoftwareModules.ExecutionUnit.1.References = 
+<                   > SoftwareModules.ExecutionUnit.1.References =
 <                   > SoftwareModules.ExecutionUnit.1.Alias = cpe-c879945e-d002-5775-88a8-e29bc0c641b4
 <                   > SoftwareModules.ExecutionUnit.1.Version = prplos-v1
 
@@ -340,8 +340,8 @@ root - ubus: - [ubus-cli] (0)
 
 ```bash
 lxc-ls --fancy
-# NAME                                 STATE   AUTOSTART GROUPS IPV4 IPV6 UNPRIVILEGED 
-# 2cb86d19-8f4f-56d9-9039-c577ae477e99 RUNNING 0         -      -    -    false    
+# NAME                                 STATE   AUTOSTART GROUPS IPV4 IPV6 UNPRIVILEGED
+# 2cb86d19-8f4f-56d9-9039-c577ae477e99 RUNNING 0         -      -    -    false
 ```
 
 4.5 - Check that container is running using `ubus-cli`
@@ -385,7 +385,7 @@ root@c879945e-d002-5775-88a8-e29bc0c641b4:~# cat /etc/os-release
 # OPENWRT_DEVICE_PRODUCT="Generic"
 # OPENWRT_DEVICE_REVISION="v0"
 # OPENWRT_RELEASE="prplOS 3.0.0-a847d6e8 r0+20614-a847d6e834"
-# root@c879945e-d002-5775-88a8-e29bc0c641b4:~# 
+# root@c879945e-d002-5775-88a8-e29bc0c641b4:~#
 
 ```
 
@@ -409,9 +409,9 @@ ubus-cli 'Cthulhu.Container.Instances.*.Status?'
 # > Cthulhu.Container.Instances.*.Status?
 # Cthulhu.Container.Instances.2.Status="Stopped"
 
-lxc-ls  --fancy 
-# NAME                                 STATE   AUTOSTART GROUPS IPV4 IPV6 UNPRIVILEGED 
-# c879945e-d002-5775-88a8-e29bc0c641b4 STOPPED 0         -      -    -    false 
+lxc-ls  --fancy
+# NAME                                 STATE   AUTOSTART GROUPS IPV4 IPV6 UNPRIVILEGED
+# c879945e-d002-5775-88a8-e29bc0c641b4 STOPPED 0         -      -    -    false
 ```
 
 
@@ -428,7 +428,7 @@ ubus-cli 'SoftwareModules.DeploymentUnit.1.Uninstall()'
 
 5.4 - Check that the container has been deleted
 ```bash
-lxc-ls  --fancy 
+lxc-ls  --fancy
 #
 ```
 
@@ -442,7 +442,7 @@ lxc-ls  --fancy
 
 ```bash
 
-mkdir ~/docker_registry_certs 
+mkdir ~/docker_registry_certs
 cd ~/docker_registry_certs
 
 openssl req \
@@ -470,21 +470,20 @@ sudo docker run -d \
 
 ```
 
-## Step 7 - Setup the LCM SDK 
+## Step 7 - Setup the LCM SDK
 
-7.1 - Download the image that targets `x86-64` using tag `v3.0.0`
+7.1 - Create a updated LCM SDK see [here](https://github.com/thomas-roos/sdk-builder/tree/main?tab=readme-ov-file#building-the-sdk). And run it:
 
 ```bash
 sudo docker run -t -d  \
-    --name lcm_sdk \
-    registry.gitlab.com/prpl-foundation/sdk/lcm/lcm_sdk_x86-64:v3.0.0
+    --name lcm_sdk lcm_sdk
 ```
 
 7.2 - Connect to the container and run a shell
 
 ```bash
 sudo docker exec -it lcm_sdk /bin/bash
-# lcmuser@dd2946e6e6a9:/sdkworkdir$ 
+# lcmuser@dd2946e6e6a9:/sdkworkdir$
 ```
 
 ## Step 8 - Add the demo project to the SDK and build it
@@ -494,7 +493,7 @@ sudo docker exec -it lcm_sdk /bin/bash
 ```bash
 devtool add \
     testhellow \
-    https://github.com/TravorLZH/autotools-helloworld.git 
+    https://github.com/TravorLZH/autotools-helloworld.git
 # NOTE: Starting bitbake server...
 ```
 8.2 Use `devtool` to build the recipe. Take a break; this step takes ~10 minutes the first time it is run.
@@ -536,7 +535,7 @@ skopeo copy \
 10.1 - Modify Rlyeh to not check for certificate verification `CertificateVerification`. and restart the service.
 
 ```bash
-cat <<EOF > /etc/amx/rlyeh/rlyeh_defaults.odl 
+cat <<EOF > /etc/amx/rlyeh/rlyeh_defaults.odl
 %populate {
     object Rlyeh {
         parameter OnboardingFile = "/usr/share/rlyeh_onboarded";
@@ -575,8 +574,8 @@ SoftwareModules.InstallDU(URL="docker://{_YOUR_EC2_PUBLIC_IP_}/helloworld:latest
 
 ```bash
 lxc-ls --fancy
-# NAME                                 STATE   AUTOSTART GROUPS IPV4          IPV6 UNPRIVILEGED 
-# 39106186-f67d-5674-8953-b069fea07e4f  RUNNING 0         -      192.168.5.100 -    false    
+# NAME                                 STATE   AUTOSTART GROUPS IPV4          IPV6 UNPRIVILEGED
+# 39106186-f67d-5674-8953-b069fea07e4f  RUNNING 0         -      192.168.5.100 -    false
 ```
 
 10.5 - Check that container running
@@ -599,7 +598,7 @@ ubus-cli 'Cthulhu.Container.Instances.*.Bundle?'
 
 ```bash
 lxc-attach -n 39106186-f67d-5674-8953-b069fea07e4f
-# root@c879945e-d002-5775-88a8-e29bc0c641b4:/# helloworld 
+# root@c879945e-d002-5775-88a8-e29bc0c641b4:/# helloworld
 # Hello world!
 # root@c879945e-d002-5775-88a8-e29bc0c641b4:/# helloconf
 # Package Name: helloworld
@@ -628,9 +627,9 @@ ubus-cli 'Cthulhu.Container.Instances.*.Status?'
 # > Cthulhu.Container.Instances.*.Status?
 # Cthulhu.Container.Instances.2.Status="Stopped"
 
-lxc-ls  --fancy 
-# NAME                                 STATE   AUTOSTART GROUPS IPV4 IPV6 UNPRIVILEGED 
-# c879945e-d002-5775-88a8-e29bc0c641b4 STOPPED 0         -      -    -    false 
+lxc-ls  --fancy
+# NAME                                 STATE   AUTOSTART GROUPS IPV4 IPV6 UNPRIVILEGED
+# c879945e-d002-5775-88a8-e29bc0c641b4 STOPPED 0         -      -    -    false
 ```
 
 11.3 - Uninstall container
