@@ -72,7 +72,7 @@ RDEPENDS:${PN} += "\
     netcat \
     strace \
     sudo \
-    libstdc++6 \
+    libstdc++ \
     "
 
 do_configure[noexec] = "1"

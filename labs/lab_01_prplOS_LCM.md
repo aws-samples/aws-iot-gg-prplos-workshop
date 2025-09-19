@@ -477,7 +477,7 @@ sudo docker run -d \
 ```bash
 sudo docker run -t -d  \
     --name lcm_sdk \
-    registry.gitlab.com/prpl-foundation/sdk/lcm/lcm_sdk_x86-64:v3.0.0
+    registry.gitlab.com/prpl-foundation/lcm/sdk/lcm/lcm_sdk_x86-64:v3.0.0
 ```
 
 7.2 - Connect to the container and run a shell
